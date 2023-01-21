@@ -19,5 +19,5 @@ int main(void)
 	else
 		printf("5 is not in the list\n");
 	printf("Matches = %d\n", count_matches(list1_head, 4));
-	printf("Matches = %d\n", count_matches(list1_head, 5));
+	printf("Matches = %d\n", count_matches(list1_head, 500));
 }
