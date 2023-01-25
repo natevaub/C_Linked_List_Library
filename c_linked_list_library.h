@@ -29,5 +29,7 @@ int recursive_length(Node *node);
 bool is_member(Node *node, int find_value);
 int count_matches(Node *node, int find_value);
 void replace_matches(Node *node, int find_value, int replace_value);
+Node *delete_first_match(Node *head, int delete_value, bool *was_deleted);
+Node *efficient_delete_match(Node *head, int delete_value, int *num_deleted);
 
 #endif

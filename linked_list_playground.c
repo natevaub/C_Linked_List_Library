@@ -119,3 +119,75 @@ void replace_matches(Node *node, int find_value, int replace_value)
 		replace_matches(node->next, find_value, replace_value);
 	}
 }
+
+Node *delete_first_match(Node *head, int delete_value, bool *was_deleted)
+{
+	if (head == NULL)
+	{
+		*was_deleted = false;
+		return NULL;
+	}
+
+	if (head->value == delete_value)
+	{
+		Node *temp = head->next;
+		free(head);
+		*was_deleted = true;
+		return temp;
+	}
+
+	Node *current = head->next;
+	Node *prev = head;
+
+	while (current != NULL)
+	{
+		if (current->value == delete_value)
+		{
+			prev->next = current->next;
+			free(current);
+			*was_deleted = true;
+			return head;
+		}
+
+		prev = current;
+		current = current->next;
+	}
+	*was_deleted = false;
+	return head;
+}
+
+
+Node *efficient_delete_match(Node *head, int delete_value, int *num_deleted)
+{
+	*num_deleted = 0;
+
+	if (head == NULL) return NULL;
+
+	Node *current, *temp, *new_head;
+	current = head;
+	while (current->value == delete_value)
+	{
+		temp = current;
+		current = current->next;
+		free(temp);
+		*num_deleted = *num_deleted + 1;
+
+		if (current == NULL) return NULL;
+	}
+
+	new_head = current;
+
+	while (current->next != NULL)
+	{
+		if (current->next->value == delete_value)
+		{
+			temp = current->next;
+			current->next = current->next->next;
+			free(temp);
+			*num_deleted = *num_deleted + 1;
+		}
+		else current = current->next;
+	}
+
+	return new_head;
+}
